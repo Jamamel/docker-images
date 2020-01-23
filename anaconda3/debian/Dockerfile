@@ -17,4 +17,11 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
     /opt/conda/bin/conda clean -afy
 
+# Add Udemy yml file
+RUN mkdir /root/udemy
+COPY nlp_course_env.yml /root/udemy
+
+RUN conda env create -f /root/udemy/nlp_course_env.yml 
+RUN conda init bash && activate nlp_course
+
 CMD [ "/bin/bash" ]
