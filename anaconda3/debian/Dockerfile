@@ -18,10 +18,14 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     /opt/conda/bin/conda clean -afy
 
 # Add Udemy yml file
-RUN mkdir /root/udemy
+RUN mkdir /root/udemy && \
+    mkdir /opt/notebooks
 COPY nlp_course_env.yml /root/udemy
 
-RUN conda env create -f /root/udemy/nlp_course_env.yml 
-RUN conda init bash && activate nlp_course
+RUN conda env create -f /root/udemy/nlp_course_env.yml
+
+RUN conda init bash && \
+    activate nlp_course && \
+    /opt/conda/bin/conda install jupyter -y --quiet
 
 CMD [ "/bin/bash" ]
