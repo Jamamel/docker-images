@@ -1,4 +1,20 @@
-Anaconda3 Docker
-docker run -i -t -p 8888:8888 continuumio/anaconda3 /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"
-docker run -i -t -p 8888:8888 udemy_nlp /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
-docker run -i -t -p 8888:8888 udemy_nlp:0.2 /bin/bash -c "/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+# Anaconda3 Docker
+# create container named 
+docker run -i -t -p 8888:8888 --name 'jama_notebook' udemy_nlp:0.2 /bin/bash -c "/opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+
+# copy token
+*******************************
+
+# bash into container and create jupyter password
+docker exec -it jama_notebook /bin/bash
+
+# create jupyter_notebook_config.py
+jupyter notebook --generate-config
+
+# set password in container
+jupyter notebook password
+
+# copy token and match token with password at http://localhost:8888
+
+# restart container
+docker start jama_notebook
